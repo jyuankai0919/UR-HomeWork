@@ -13,14 +13,17 @@ namespace UR_HomeWork.Controllers
 
 
 
+            return View();
+        }
 
-
+        public ActionResult LoginPage()
+        {
 
 
 
             return View();
-
         }
+
 
 
 
