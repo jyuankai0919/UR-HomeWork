@@ -10,15 +10,30 @@ using System.Web;
 using System.Web.Mvc;
 using static UR_HomeWork.Models.UR_class.UserModel;
 using UR_HomeWork.Models.DB_Data;
+using UR_HomeWork.Controllers.Feature;
 
 namespace UR_HomeWork.Controllers
 {
     public class HomeController : Controller
     {
         UR_DB db = new UR_DB();
+        UserMethod userMethod = new UserMethod();
         public ActionResult Index()
         {
 
+
+            return View();
+        }
+
+        public ActionResult LoginPage()
+        {
+
+
+            return View();
+        }
+
+        public ActionResult SingUpPage()
+        {
 
             return View();
         }
@@ -36,9 +51,21 @@ namespace UR_HomeWork.Controllers
             {
                 outModel.ErrMsg = "請輸入資料";
             }
+            else if (!userMethod.IsValidEmail(inModel.UserID))
+            {
+                outModel.ErrMsg = "請輸入正確的Email";
+            }
+            else if (!userMethod.IsValidPassword(inModel.UserPwd))
+            {
+                outModel.ErrMsg = "請確認密碼是否包含英文及數字，長度必須至少為8個字符";
+            }
             else if (inModel.UserPwd != inModel.UserPwdChk)
             {
                 outModel.ErrMsg = "密碼驗證錯誤";
+            }
+            else if (!userMethod.IsValidName(inModel.UserName))
+            {
+                outModel.ErrMsg = "請輸入正確的姓名";
             }
             else
             {
@@ -88,49 +115,6 @@ namespace UR_HomeWork.Controllers
             // 輸出json
             return Json(outModel);
         }
-
-        public ActionResult LoginPage()
-        {
-
-
-            return View();
-        }
-
-        public ActionResult SingUpPage()
-        {
-
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult SingUpPage(FormCollection post)
-        {
-            string account = post["Account"];
-            string password = post["Password"];
-            string passwordChack = post["PasswordChack"];
-            string name = post["Name"];
-            string address = post["Address"];
-
-            if (string.IsNullOrWhiteSpace(account) || string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(address))
-            {
-                ViewBag.Msg = "資料輸入有誤，請重新確認";
-                return View();
-            }
-
-            if (string.IsNullOrWhiteSpace(password) || password != passwordChack)
-            {
-                ViewBag.Msg = "請重新確認密碼";
-                return View();
-
-            }
-            else
-            {
-                //Response.Write("<script>alert('註冊成功');location.href='LoginPage'; </script>");
-                Response.Redirect("LoginPage");
-                return new EmptyResult();
-            }
-        }
-
 
     }
 

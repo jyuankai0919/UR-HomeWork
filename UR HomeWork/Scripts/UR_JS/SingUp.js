@@ -19,7 +19,7 @@
             postData['UserName'] = self.form.UserName;
             postData['UserAdd'] = self.form.UserAdd;
 
-            // 使用 jQuery Ajax 傳送至後端
+            // 使用 Ajax 傳送至後端
             $.ajax({
                 url: 'DoRegister',
                 method: 'POST',
@@ -31,6 +31,7 @@
                         return;
                     }
                     alert(datas.ResultMsg);
+                    window.location.href = 'LoginPage';
                 },
                 error: function (err) {
                     $('#ErrorMsg').html(err.responseText);
