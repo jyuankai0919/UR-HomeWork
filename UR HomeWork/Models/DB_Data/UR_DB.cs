@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 
-namespace UR_HomeWork.Models
+namespace UR_HomeWork.Models.DB_Data
 {
     public partial class UR_DB : DbContext
     {
@@ -17,7 +17,7 @@ namespace UR_HomeWork.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-                .Property(e => e.Account)
+                .Property(e => e.PassWord)
                 .IsUnicode(false);
         }
     }

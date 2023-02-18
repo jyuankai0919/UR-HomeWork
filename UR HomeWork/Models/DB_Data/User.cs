@@ -1,4 +1,4 @@
-namespace UR_HomeWork.Models
+namespace UR_HomeWork.Models.DB_Data
 {
     using System;
     using System.Collections.Generic;
@@ -9,23 +9,16 @@ namespace UR_HomeWork.Models
     [Table("User")]
     public partial class User
     {
-        public int Id { get; set; }
-
-        [Required]
-        [StringLength(30)]
-        public string Account { get; set; }
-
-        [Required]
         [StringLength(50)]
+        public string Id { get; set; }
+
+        [Required]
+        [StringLength(100)]
         public string PassWord { get; set; }
 
         [Required]
         [StringLength(30)]
         public string Name { get; set; }
-
-        [Required]
-        [StringLength(20)]
-        public string City { get; set; }
 
         [Required]
         [StringLength(40)]
