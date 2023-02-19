@@ -16,12 +16,13 @@ namespace UR_HomeWork.Controllers
     
     public class AccountController : Controller
     {
-        UR_DB db = new UR_DB();
+        
         MemberService memberService = new MemberService();
 
 
-        public ActionResult LoginPage()
+        public virtual ActionResult LoginPage()
         {
+            UR_DB db = new UR_DB();
             if (Request.Cookies["UserKeepLogin"] != null)
             {
                 if (!string.IsNullOrEmpty(Request.Cookies["UserKeepLogin"].Value))
@@ -68,6 +69,7 @@ namespace UR_HomeWork.Controllers
         /// <returns></returns>
         public ActionResult DoRegister(DoRegisterIn inModel)
         {
+            UR_DB db = new UR_DB();
             DoRegisterOut outModel = new DoRegisterOut();
 
             if (string.IsNullOrEmpty(inModel.UserID) || string.IsNullOrEmpty(inModel.UserPwd) || string.IsNullOrEmpty(inModel.UserPwdChk) || string.IsNullOrEmpty(inModel.UserName))
@@ -135,8 +137,9 @@ namespace UR_HomeWork.Controllers
         /// </summary>
         /// <param name="inModel"></param>
         /// <returns></returns>
-        public ActionResult DoLogin(DoLoginIn inModel)
+        public virtual ActionResult DoLogin(DoLoginIn inModel)
         {
+            UR_DB db = new UR_DB();
             DoLoginOut outModel = new DoLoginOut();
 
             // 檢查輸入資料
