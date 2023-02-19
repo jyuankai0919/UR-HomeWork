@@ -135,7 +135,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202302190520509_InitialCreate.cs" />
+    <Compile Include="Migrations\202302190520509_InitialCreate.designer.cs">
+      <DependentUpon>202302190520509_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202302190637027_InitialCreate1.cs" />
+    <Compile Include="Migrations\202302190637027_InitialCreate1.designer.cs">
+      <DependentUpon>202302190637027_InitialCreate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202302190639207_InitialCreate2.cs" />
+    <Compile Include="Migrations\202302190639207_InitialCreate2.designer.cs">
+      <DependentUpon>202302190639207_InitialCreate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DB_Data\UR_DB.cs" />
+    <Compile Include="Models\DB_Data\Tokens.cs" />
     <Compile Include="Models\DB_Data\User.cs" />
     <Compile Include="Models\UR_class\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -179,6 +193,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\LoginPage.cshtml" />
     <Content Include="Views\Account\SingUpPage.cshtml" />
+    <Content Include="Views\Account\AccountPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -196,6 +211,17 @@
     <None Include="packages.config" />
     <Content Include="Scripts\default\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\default\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202302190520509_InitialCreate.resx">
+      <DependentUpon>202302190520509_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302190637027_InitialCreate1.resx">
+      <DependentUpon>202302190637027_InitialCreate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302190639207_InitialCreate2.resx">
+      <DependentUpon>202302190639207_InitialCreate2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

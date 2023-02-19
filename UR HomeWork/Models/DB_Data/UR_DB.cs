@@ -14,11 +14,13 @@ namespace UR_HomeWork.Models.DB_Data
 
         public virtual DbSet<User> User { get; set; }
 
+        public DbSet<Tokens> Tokens { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
-                .Property(e => e.PassWord)
-                .IsUnicode(false);
+            modelBuilder.Entity<Tokens>()
+        .Property(t => t.UserId)
+        .HasMaxLength(50);
         }
     }
 }

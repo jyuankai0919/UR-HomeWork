@@ -38,6 +38,9 @@ namespace UR_HomeWork.Models.UR_class
         {
             public string UserID { get; set; }
             public string UserPwd { get; set; }
+            public string KeepLogin { get; set; }
+
+
         }
 
         /// <summary>

@@ -15,7 +15,7 @@
             var postData = {};
             postData['UserID'] = self.form.UserID;
             postData['UserPwd'] = self.form.UserPwd;
-
+            postData['KeepLogin'] = self.form.KeepLogin;
             // 使用 jQuery Ajax 傳送至後端
             $.ajax({
                 url: '/Account/DoLogin',
@@ -38,6 +38,12 @@
         // 跳轉註冊按鈕
         register: function () {
             window.location.href = "/Home/SingUpPage";
+        }
+    }
+    , mounted: function () {
+        if (UserKeepLogin == "Y") {
+            alert("已登錄");
+            window.location.href = "/Account/AccountPage";
         }
     }
 })

@@ -22,8 +22,35 @@ namespace UR_HomeWork.Controllers
 
         public ActionResult LoginPage()
         {
+            if (Request.Cookies["UserKeepLogin"] != null)
+            {
+                if (!string.IsNullOrEmpty(Request.Cookies["UserKeepLogin"].Value))
+                {
+                    string ckUserKeepLoginVerify = Request.Cookies["UserKeepLogin"].Value;
 
+                    // 取出帳號密碼
+                    string UserID = ckUserKeepLoginVerify.Split('|')[0];
+                    string UserToken = ckUserKeepLoginVerify.Split('|')[1];
 
+                    Tokens tokens = db.Tokens.Where(w => w.UserId == UserID).FirstOrDefault();
+
+                    // 檢查帳號、密碼是否正確
+                    if (tokens.Value == UserToken)
+                    {
+                        // 有查詢到資料，表示帳號密碼正確
+
+                        //確認 token 還在時效內
+                        if (tokens.ExpiresAt > DateTime.Now)
+                        {
+                            // 將登入帳號記錄在 Session 內
+                            Session["UserID"] = UserID;
+
+                            //給前端的資訊
+                            ViewData["UserKeepLogin"] = "Y";
+                        }
+                    }
+                }
+            }
             return View();
         }
 
@@ -33,6 +60,7 @@ namespace UR_HomeWork.Controllers
 
             return View();
         }
+
         /// <summary>
         /// 執行註冊
         /// </summary>
@@ -137,6 +165,46 @@ namespace UR_HomeWork.Controllers
                         Session["UserID"] = inModel.UserID;
 
                         outModel.ResultMsg = "登入成功";
+
+                        // 檢查是否保持登入
+                        if (inModel.KeepLogin == "true")
+                        {
+
+                            string token = Guid.NewGuid().ToString();// 生成一個隨機的 token
+                            HttpCookie ckUserKeepLogin = new HttpCookie("UserKeepLogin"); //Cookie 名稱
+                            ckUserKeepLogin.Value = inModel.UserID + "|" + token; //Cookie 值
+                            ckUserKeepLogin.Expires = DateTime.Now.AddDays(7); //Cookie 有效期限
+                            ckUserKeepLogin.HttpOnly = true; //防止 XSS 攻擊
+
+                            //確認是否有token紀錄
+                            Tokens tokens = db.Tokens.Where(w => w.UserId == inModel.UserID).FirstOrDefault();
+
+                            //沒有紀錄
+                            if (tokens == null)
+                            {
+                                tokens = new Tokens();
+                                tokens.User = user;
+                                tokens.UserId = inModel.UserID;
+                                tokens.Value = token;
+                                tokens.CreatedAt = DateTime.Now;
+                                tokens.ExpiresAt = DateTime.Now.AddDays(7);
+
+                                db.Tokens.Add(tokens);
+                            }
+                            else
+                            {
+                                //有資料代表曾經登錄過
+
+                                //更新DB token
+                                tokens.Value = token;
+                                tokens.CreatedAt = DateTime.Now;
+                                tokens.ExpiresAt = DateTime.Now.AddDays(7);
+                            }
+                            db.SaveChanges();
+                            Response.Cookies.Add(ckUserKeepLogin);
+
+                        }
+
                     }
                     else
                     {
@@ -152,6 +220,12 @@ namespace UR_HomeWork.Controllers
 
             // 輸出json
             return Json(outModel);
+        }
+
+        public ActionResult AccountPage()
+        {
+
+            return View();
         }
 
 
