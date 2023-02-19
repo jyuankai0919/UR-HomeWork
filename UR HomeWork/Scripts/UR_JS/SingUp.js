@@ -21,7 +21,7 @@
 
             // 使用 Ajax 傳送至後端
             $.ajax({
-                url: 'DoRegister',
+                url: '/Account/DoRegister',
                 method: 'POST',
                 dataType: 'json',
                 data: { inModel: postData },
@@ -31,7 +31,7 @@
                         return;
                     }
                     alert(datas.ResultMsg);
-                    window.location.href = 'LoginPage';
+                    window.location.href = '/Home/LoginPage';
                 },
                 error: function (err) {
                     $('#ErrorMsg').html(err.responseText);
