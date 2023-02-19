@@ -31,7 +31,7 @@
                         return;
                     }
                     alert(datas.ResultMsg);
-                    window.location.href = '/Home/LoginPage';
+                    window.location.href = '/Account/LoginPage';
                 },
                 error: function (err) {
                     $('#ErrorMsg').html(err.responseText);
